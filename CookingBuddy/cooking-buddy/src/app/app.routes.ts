@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from './features/home/home-page/home-page.component';
 import { RegisterPage } from './features/register/register-page/register-page';
 import { RecipePageComponent } from './features/recipes/recipe-page.component';
+import { FavoritesPageComponent } from './features/recipes/favorites-page.component';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -18,5 +19,5 @@ export const routes: Routes = [
     path: 'recipe/:id', 
     component: RecipePageComponent 
   },
-
+  { path: 'favorites', component: FavoritesPageComponent },
 ];
