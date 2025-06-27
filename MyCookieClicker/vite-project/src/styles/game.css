@@ -1,0 +1,27 @@
+@keyframes pulseClick {
+    0% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.2);
+      filter: brightness(1.2);
+    }
+    100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+  }
+  
+  #click {
+    animation: pulseClick 2s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+    cursor: pointer;
+  }
+  
+
+#game-clickable-area.active img.main-cursor {
+  transform: scale(1.1);
+  transition: transform 0.1s ease;
+}

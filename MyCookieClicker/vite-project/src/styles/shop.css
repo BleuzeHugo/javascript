@@ -1,0 +1,35 @@
+#shop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #1a1a1a;
+  color: white;
+  padding: 1rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+#shop.hidden {
+  transform: translateX(100%);
+}
+
+#shop-toggle-button {
+  position: fixed;
+  top: 50%;
+  right: 250px;
+  transform: translateY(-50%);
+  background-color: #1a1a1a;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: 5px 0 0 5px;
+}
+
+#buy-cursor
+{
+  border-color: white;
+}
