@@ -2,12 +2,35 @@
   <h1>Bienvenue sur CookingBuddy !</h1>
   <p>Voici la page d'accueil.</p>
 
-  <app-recipe-categories
-    [categories]="recipesService.categories()"
-    (categorySelected)="onCategorySelected($event)">
-  </app-recipe-categories>
+  <!-- Barre de recherche -->
+  <mat-form-field appearance="outline" class="full-width" style="margin-bottom: 24px;">
+    <mat-label>Rechercher une recette</mat-label>
+    <input matInput [value]="search" (input)="onSearchChange($any($event.target).value)" placeholder="Tapez le nom d'une recette..." />
+    @if (search) {
+      <button mat-icon-button matSuffix (click)="onSearchChange('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
 
-  @if (selectedCategory) {
-    <app-recipe-category [category]="selectedCategory"></app-recipe-category>
+  <!-- Affichage des résultats de recherche -->
+  @if (recipesService.searchResults()) {
+    @if (recipesService.searchResults()?.length) {
+      <div>
+        @for (recipe of recipesService.searchResults(); track recipe.idMeal) {
+          <app-detailed-recipe-card [recipe]="recipe" (click)="goToRecipe(recipe.idMeal)"></app-detailed-recipe-card>
+        }
+      </div>
+    } @else {
+      <p>Aucun résultat trouvé pour votre recherche.</p>
+    }
+  } @else {
+    <app-recipe-categories
+      [categories]="recipesService.categories()"
+      (categorySelected)="onCategorySelected($event)">
+    </app-recipe-categories>
+    @if (selectedCategory) {
+      <app-recipe-category [category]="selectedCategory" (recipeClick)="goToRecipe($event)"></app-recipe-category>
+    }
   }
 </app-page-layout>

@@ -1,16 +1,17 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { RecipeCardComponent } from './recipe-card.component';
-import { NgFor } from '@angular/common';
 import { RecipesService } from '../../core/services/recipes.service';
 
 @Component({
   selector: 'app-recipe-category',
   standalone: true,
-  imports: [RecipeCardComponent, NgFor],
+  imports: [RecipeCardComponent],
   template: `
     @if (recipes().length > 0) {
       <div>
-        <app-recipe-card *ngFor="let recipe of recipes()" [recipe]="recipe"></app-recipe-card>
+        @for (recipe of recipes(); track recipe.idMeal) {
+          <app-recipe-card [recipe]="recipe" (cardClick)="onRecipeClick(recipe.idMeal)"></app-recipe-card>
+        }
       </div>
     }
   `,
@@ -33,6 +34,7 @@ export class RecipeCategoryComponent {
   }
   private _category: string | null = null;
   recipes = signal<any[]>([]);
+  @Output() recipeClick = new EventEmitter<string>();
 
   constructor(private recipesService: RecipesService) {}
 
@@ -43,5 +45,9 @@ export class RecipeCategoryComponent {
     } else {
       this.recipes.set([]);
     }
+  }
+
+  onRecipeClick(id: string) {
+    this.recipeClick.emit(id);
   }
 }

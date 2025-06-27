@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [MatCardModule],
   template: `
     @if (recipe) {
-      <mat-card>
+      <mat-card (click)="cardClick.emit()">
         <img mat-card-image [src]="recipe.strMealThumb" [alt]="recipe.strMeal" />
         <mat-card-title>{{ recipe.strMeal }}</mat-card-title>
       </mat-card>
@@ -28,4 +28,5 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class RecipeCardComponent {
   @Input() recipe: any;
+  @Output() cardClick = new EventEmitter<void>();
 }
