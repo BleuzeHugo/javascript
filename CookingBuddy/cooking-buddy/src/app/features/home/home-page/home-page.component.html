@@ -1,4 +1,13 @@
 <app-page-layout>
   <h1>Bienvenue sur CookingBuddy !</h1>
   <p>Voici la page d'accueil.</p>
+
+  <app-recipe-categories
+    [categories]="recipesService.categories()"
+    (categorySelected)="onCategorySelected($event)">
+  </app-recipe-categories>
+
+  @if (selectedCategory) {
+    <app-recipe-category [category]="selectedCategory"></app-recipe-category>
+  }
 </app-page-layout>

@@ -108,11 +108,11 @@
             <a href="/terms" target="_blank">conditions d'utilisation</a> et la
             <a href="/privacy" target="_blank">politique de confidentialité</a>
           </mat-checkbox>
-          <mat-error
-            *ngIf="acceptTerms.errors?.['required'] && acceptTerms.touched"
-          >
-            Vous devez accepter les conditions d'utilisation
-          </mat-error>
+          @if (acceptTerms.errors?.['required'] && acceptTerms.touched) {
+            <mat-error>
+              Vous devez accepter les conditions d'utilisation
+            </mat-error>
+          }
         </div>
 
         <!-- Bouton d'inscription -->
@@ -123,9 +123,15 @@
           class="full-width submit-button"
           [disabled]="registerForm.invalid || isLoading || acceptTerms.invalid"
         >
-          <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
-          <span *ngIf="!isLoading">S'inscrire</span>
-          <span *ngIf="isLoading">Inscription en cours...</span>
+          @if (isLoading) {
+            <mat-spinner diameter="20"></mat-spinner>
+          }
+          @if (!isLoading) {
+            <span>S'inscrire</span>
+          }
+          @if (isLoading) {
+            <span>Inscription en cours...</span>
+          }
         </button>
       </form>
     </mat-card-content>
